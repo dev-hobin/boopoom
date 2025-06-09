@@ -1,0 +1,35 @@
+{
+  "name": "@boopoom/app",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "pnpm": ">=10"
+  },
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build"
+  },
+  "dependencies": {
+    "@boopoom/button": "workspace:*",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^4",
+    "@storybook/addon-a11y": "^9.0.6",
+    "@storybook/addon-docs": "^9.0.6",
+    "@storybook/addon-onboarding": "^9.0.6",
+    "@storybook/addon-vitest": "^9.0.6",
+    "@storybook/react-vite": "^9.0.6",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.6",
+    "@vitest/browser": "^3.2.3",
+    "@vitest/coverage-v8": "^3.2.3",
+    "playwright": "^1.52.0",
+    "storybook": "^9.0.6",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.3"
+  }
+}

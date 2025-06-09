@@ -1,0 +1,27 @@
+{
+  "name": "boopoom",
+  "private": true,
+  "version": "0.0.1",
+  "description": "best best best UI Library",
+  "scripts": {
+    "build": "lage build",
+    "build:button": "lage build --scope '@boopoom/button' --no-dependents",
+    "build:app": "lage build --scope app --no-dependents",
+    "dev": "pnpm --filter '@boopoom/*' run dev --silent & pnpm run dev:app",
+    "dev:button": "pnpm --filter '@boopoom/button' run dev --silent & pnpm run dev:app",
+    "dev:app": "pnpm --filter app run dev"
+  },
+  "keywords": [
+    "boopoom"
+  ],
+  "author": "Hobin Jang",
+  "license": "MIT",
+  "engines": {
+    "pnpm": ">=10"
+  },
+  "devDependencies": {
+    "lage": "^2.14.6",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
+  }
+}
