@@ -1,9 +1,9 @@
 import { useEffect, useReducer } from 'react'
-import { useActions } from '@boopoom/react-utils'
+import { useCallbackQueue } from '@boopoom/react-utils'
 import { AccordionEvent, AccordionState } from './type'
 
 export function useAccordion(initial: AccordionState) {
-  const [actionQueue, actionQueueApi] = useActions()
+  const [callbackQueue, callbackQueueApi] = useCallbackQueue<VoidFunction>()
 
   const [state, dispatch] = useReducer(
     (state: AccordionState, event: AccordionEvent) => {
@@ -39,12 +39,12 @@ export function useAccordion(initial: AccordionState) {
 
   // handle actions
   useEffect(() => {
-    if (actionQueue.length === 0) {
+    if (callbackQueue.length === 0) {
       return
     }
 
-    actionQueue.forEach((action) => action())
-    actionQueueApi.clear()
+    callbackQueue.forEach((action) => action())
+    callbackQueueApi.clear()
   })
 
   // handle activities

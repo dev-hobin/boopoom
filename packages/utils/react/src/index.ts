@@ -8,4 +8,4 @@ export {
 export { buildContext } from './buildContext'
 
 export { useEventCallback } from './useEventCallback'
-export { useActions } from './useActions'
+export { useCallbackQueue } from './useCallbackQueue'

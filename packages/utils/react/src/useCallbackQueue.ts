@@ -1,9 +1,9 @@
 import { useCallback, useRef } from 'react'
 
-export function useActions() {
-  const actionQueueRef = useRef<VoidFunction[]>([])
+export function useCallbackQueue<T extends (...args: any[]) => any>() {
+  const actionQueueRef = useRef<T[]>([])
 
-  const enqueue = useCallback((...actions: VoidFunction[]) => {
+  const enqueue = useCallback((...actions: T[]) => {
     actionQueueRef.current.push(...actions)
   }, [])
 
