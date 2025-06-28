@@ -95,6 +95,31 @@ importers:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
 
+  packages/ui/accordion:
+    dependencies:
+      '@boopoom/dom-utils':
+        specifier: workspace:*
+        version: link:../../utils/dom
+      '@boopoom/primitive':
+        specifier: workspace:*
+        version: link:../../base/primitive
+      '@boopoom/react-utils':
+        specifier: workspace:*
+        version: link:../../utils/react
+    devDependencies:
+      '@types/react':
+        specifier: ^19.1.6
+        version: 19.1.6
+      '@types/react-dom':
+        specifier: ^19.1.6
+        version: 19.1.6(@types/react@19.1.6)
+      react:
+        specifier: ^19.1.0
+        version: 19.1.0
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
+
   packages/ui/button:
     devDependencies:
       '@types/react':
