@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
 
-type ProviderProps<TContext> = { context: TContext; children: ReactNode }
+type ProviderProps<TContext> = { value: TContext; children: ReactNode }
 
 export function buildContext<TContext extends Record<PropertyKey, unknown>>(
   contextName: string,
@@ -8,13 +8,19 @@ export function buildContext<TContext extends Record<PropertyKey, unknown>>(
 ) {
   const Context = createContext<TContext | undefined>(defaultValue ?? undefined)
 
-  function Provider({ children, context }: ProviderProps<TContext>) {
-    const value = useMemo(
-      () => (Object.keys(context).length > 0 ? context : null),
-      [...Object.values(context)],
-    ) as TContext
-
-    return <Context.Provider value={value}>{children}</Context.Provider>
+  function Provider({ children, value }: ProviderProps<TContext>) {
+    return (
+      <Context.Provider
+        value={
+          useMemo(
+            () => (Object.keys(value).length > 0 ? value : null),
+            [...Object.values(value)],
+          ) as TContext
+        }
+      >
+        {children}
+      </Context.Provider>
+    )
   }
 
   function useInnerContext() {

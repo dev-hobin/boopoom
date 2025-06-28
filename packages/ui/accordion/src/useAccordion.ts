@@ -1,29 +1,11 @@
 import { useEffect, useReducer } from 'react'
 import { useActions } from '@boopoom/react-utils'
-
-export type AccordionStatus = 'idle'
-
-export type AccordionContext = {}
-
-export type AccordionActions = {}
-
-export type AccordionState = {
-  status: AccordionStatus | (string & {})
-  context: AccordionContext
-  actions: AccordionActions
-  entryActions?: Partial<Record<AccordionStatus, VoidFunction[]>>
-  exitActions?: Partial<Record<AccordionStatus, VoidFunction[]>>
-}
-
-export type AccordionEvent =
-  | { type: 'SOME' }
-  | { type: 'OTHER' }
-  | { type: 'SYNC'; payload: AccordionContext }
+import { AccordionEvent, AccordionState } from './type'
 
 export function useAccordion(initial: AccordionState) {
   const [actionQueue, actionQueueApi] = useActions()
 
-  const [state, send] = useReducer(
+  const [state, dispatch] = useReducer(
     (state: AccordionState, event: AccordionEvent) => {
       if (state.status === 'idle') {
         switch (event.type) {
@@ -67,10 +49,10 @@ export function useAccordion(initial: AccordionState) {
 
   // handle activities
   useEffect(() => {
-    if (state.status === 'open') {
+    if (state.status === 'idle') {
       return () => {}
     }
   }, [state.status])
 
-  return [state, send] as const
+  return { state, dispatch } as const
 }
