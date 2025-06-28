@@ -5,3 +5,4 @@ export {
   buttonProps,
   imgProps,
 } from './props'
+export { useEventCallback } from './useEventCallback'
