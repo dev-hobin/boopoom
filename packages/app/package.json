@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@boopoom/button": "workspace:*",
+    "@boopoom/accordion": "workspace:*",
     "@boopoom/primitive": "workspace:*",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"

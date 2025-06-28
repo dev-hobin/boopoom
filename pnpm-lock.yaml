@@ -20,6 +20,9 @@ importers:
 
   packages/app:
     dependencies:
+      '@boopoom/accordion':
+        specifier: workspace:*
+        version: link:../ui/accordion
       '@boopoom/button':
         specifier: workspace:*
         version: link:../ui/button
