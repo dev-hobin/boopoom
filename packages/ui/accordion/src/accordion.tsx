@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, Dispatch, forwardRef } from 'react'
-import { Primitive } from '@boopoom/primitive'
+import { Primitive, PrimitivePropsWithoutRef } from '@boopoom/primitive'
 import { mergeProps } from '@boopoom/dom-utils'
 import { buildContext } from '@boopoom/react-utils'
 import { useAccordion } from './useAccordion'
@@ -12,7 +12,7 @@ const [AccordionProvider, useAccordionContext] = buildContext<{
   dispatch: Dispatch<AccordionEvent>
 }>('Accordion')
 
-export interface RootProps extends ComponentPropsWithoutRef<'section'> {}
+export interface RootProps extends PrimitivePropsWithoutRef<'section'> {}
 export const Root = forwardRef<HTMLElement, RootProps>((props, ref) => {
   const { state, dispatch } = useAccordion({
     status: 'idle',
@@ -28,7 +28,7 @@ export const Root = forwardRef<HTMLElement, RootProps>((props, ref) => {
   )
 })
 
-export interface ItemProps extends ComponentPropsWithoutRef<'div'> {}
+export interface ItemProps extends PrimitivePropsWithoutRef<'div'> {}
 export const Item = forwardRef<HTMLDivElement, ItemProps>((props, ref) => {
   const { state } = useAccordionContext()
   const { itemProps } = useAccordionProps(state)
@@ -36,7 +36,7 @@ export const Item = forwardRef<HTMLDivElement, ItemProps>((props, ref) => {
   return <Primitive.div ref={ref} {...mergeProps(itemProps, props)} />
 })
 
-export interface ItemTriggerProps extends ComponentPropsWithoutRef<'button'> {
+export interface ItemTriggerProps extends PrimitivePropsWithoutRef<'button'> {
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6
 }
 export const ItemTrigger = forwardRef<HTMLButtonElement, ItemTriggerProps>(
@@ -65,7 +65,7 @@ export const ItemTrigger = forwardRef<HTMLButtonElement, ItemTriggerProps>(
   },
 )
 
-export interface ItemIndicatorProps extends ComponentPropsWithoutRef<'span'> {}
+export interface ItemIndicatorProps extends PrimitivePropsWithoutRef<'span'> {}
 export const ItemIndicator = forwardRef<HTMLSpanElement, ItemIndicatorProps>(
   (props, ref) => {
     const { state } = useAccordionContext()
@@ -77,7 +77,7 @@ export const ItemIndicator = forwardRef<HTMLSpanElement, ItemIndicatorProps>(
   },
 )
 
-export interface ItemPanelProps extends ComponentPropsWithoutRef<'div'> {}
+export interface ItemPanelProps extends PrimitivePropsWithoutRef<'div'> {}
 export const ItemPanel = forwardRef<HTMLDivElement, ItemPanelProps>(
   (props, ref) => {
     const { state } = useAccordionContext()

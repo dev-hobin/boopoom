@@ -4,8 +4,13 @@ import { Slot } from '@radix-ui/react-slot'
 interface PrimitiveForwardRefComponent<E extends React.ElementType>
   extends React.ForwardRefExoticComponent<PrimitivePropsWithRef<E>> {}
 
-type PrimitivePropsWithRef<E extends React.ElementType> =
+export type PrimitivePropsWithRef<E extends React.ElementType> =
   React.ComponentPropsWithRef<E> & {
+    asChild?: boolean
+  }
+
+export type PrimitivePropsWithoutRef<E extends React.ElementType> =
+  React.ComponentPropsWithoutRef<E> & {
     asChild?: boolean
   }
 
