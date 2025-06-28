@@ -12,7 +12,6 @@
     "build": "storybook build"
   },
   "dependencies": {
-    "@boopoom/button": "workspace:*",
     "@boopoom/accordion": "workspace:*",
     "@boopoom/primitive": "workspace:*",
     "react": "^19.1.0",

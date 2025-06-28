@@ -23,9 +23,6 @@ importers:
       '@boopoom/accordion':
         specifier: workspace:*
         version: link:../ui/accordion
-      '@boopoom/button':
-        specifier: workspace:*
-        version: link:../ui/button
       '@boopoom/primitive':
         specifier: workspace:*
         version: link:../base/primitive
@@ -109,21 +106,6 @@ importers:
       '@boopoom/react-utils':
         specifier: workspace:*
         version: link:../../utils/react
-    devDependencies:
-      '@types/react':
-        specifier: ^19.1.6
-        version: 19.1.6
-      '@types/react-dom':
-        specifier: ^19.1.6
-        version: 19.1.6(@types/react@19.1.6)
-      react:
-        specifier: ^19.1.0
-        version: 19.1.0
-      react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.1.0)
-
-  packages/ui/button:
     devDependencies:
       '@types/react':
         specifier: ^19.1.6

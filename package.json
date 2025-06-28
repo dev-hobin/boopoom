@@ -5,10 +5,8 @@
   "description": "best best best UI Library",
   "scripts": {
     "build": "lage build",
-    "build:button": "lage build --scope '@boopoom/button' --no-dependents",
     "build:app": "lage build --scope app --no-dependents",
     "dev": "pnpm --filter '@boopoom/*' run dev --silent & pnpm run dev:app",
-    "dev:button": "pnpm --filter '@boopoom/button' run dev --silent & pnpm run dev:app",
     "dev:app": "pnpm --filter app run dev"
   },
   "keywords": [
