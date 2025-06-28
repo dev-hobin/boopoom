@@ -6,3 +6,4 @@ export {
   imgProps,
 } from './props'
 export { useEventCallback } from './useEventCallback'
+export { useActions } from './useActions'
