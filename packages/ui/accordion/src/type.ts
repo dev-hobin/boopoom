@@ -18,6 +18,6 @@ export type AccordionState = {
 }
 
 export type AccordionEvent =
-  | { type: 'SOME' }
-  | { type: 'OTHER' }
+  | { type: 'EXPAND'; value: string | number }
+  | { type: 'COLLAPSE'; value: string | number }
   | { type: 'SYNC'; payload: AccordionContext }

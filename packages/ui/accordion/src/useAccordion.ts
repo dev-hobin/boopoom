@@ -7,28 +7,41 @@ export function useAccordion(initial: AccordionState) {
 
   const [state, dispatch] = useReducer(
     (state: AccordionState, event: AccordionEvent) => {
-      if (state.status === 'idle') {
-        switch (event.type) {
-          case 'SOME':
-            return {
-              ...state,
-            }
-          case 'OTHER':
-            return {
-              ...state,
-            }
-          case 'SYNC':
-            return {
-              ...state,
-              context: event.payload,
-            }
-        }
-      }
-
       if (event.type === 'SYNC') {
         return {
           ...state,
           context: event.payload,
+        }
+      }
+
+      if (state.status === 'idle') {
+        switch (event.type) {
+          case 'EXPAND':
+            callbackQueueApi.enqueue(() => {
+              state.callbacks.onValueChange([event.value])
+            })
+
+            return {
+              ...state,
+              context: {
+                ...state.context,
+                value: [event.value],
+              },
+            }
+          case 'COLLAPSE':
+            const value = state.context.value.filter((v) => v !== event.value)
+
+            callbackQueueApi.enqueue(() => {
+              state.callbacks.onValueChange(value)
+            })
+
+            return {
+              ...state,
+              context: {
+                ...state.context,
+                value,
+              },
+            }
         }
       }
 

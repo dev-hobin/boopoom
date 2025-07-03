@@ -1,5 +1,5 @@
+import { Dispatch } from 'react'
 import { buttonProps, elementProps } from '@boopoom/react-utils'
-import { AccordionState } from './type'
 import {
   getRootBoopoomId,
   getItemBoopoomId,
@@ -8,7 +8,12 @@ import {
   getItemIndicatorBoopoomId,
 } from './id'
 
-export function useAccordionProps(state: AccordionState) {
+import type { AccordionState, AccordionEvent } from './type'
+
+export function useAccordionProps(
+  state: AccordionState,
+  dispatch: Dispatch<AccordionEvent>,
+) {
   const rootId = getRootBoopoomId(state.context)
   return {
     rootProps: elementProps({
@@ -29,6 +34,13 @@ export function useAccordionProps(state: AccordionState) {
       return buttonProps({
         id,
         'data-boopoom-id': id,
+        onClick() {
+          if (state.context.value.includes(value)) {
+            dispatch({ type: 'COLLAPSE', value })
+          } else {
+            dispatch({ type: 'EXPAND', value })
+          }
+        },
       })
     },
     getItemPanelProps: ({ value }: { value: string | number }) => {
