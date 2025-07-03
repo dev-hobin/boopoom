@@ -61,11 +61,11 @@ export function useAccordion(initial: AccordionState) {
   })
 
   // handle activities
-  useEffect(() => {
-    if (state.status === 'idle') {
-      return () => {}
-    }
-  }, [state.status])
+  // useEffect(() => {
+  //   if (state.status === 'idle') {
+  //     return () => {}
+  //   }
+  // }, [state.status])
 
   return { state, dispatch } as const
 }
