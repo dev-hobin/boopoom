@@ -6,9 +6,12 @@ import {
   getItemTriggerBoopoomId,
   getItemPanelBoopoomId,
   getItemIndicatorBoopoomId,
+  getItemTriggerId,
+  getItemPanelId,
 } from './id'
 
 import type { AccordionState, AccordionEvent } from './type'
+import { ariaAttr } from '@boopoom/dom-utils'
 
 export function useAccordionProps(
   state: AccordionState,
@@ -34,6 +37,8 @@ export function useAccordionProps(
       return buttonProps({
         id,
         'data-boopoom-id': id,
+        'aria-expanded': ariaAttr(state.context.value.includes(value)),
+        'aria-controls': getItemPanelId(state.context, value),
         onClick() {
           if (state.context.value.includes(value)) {
             dispatch({ type: 'COLLAPSE', value })
@@ -49,6 +54,7 @@ export function useAccordionProps(
       return elementProps({
         id,
         'data-boopoom-id': id,
+        'aria-labelledby': getItemTriggerId(state.context, value),
       })
     },
     getItemIndicatorProps: ({ value }: { value: string | number }) => {

@@ -92,8 +92,6 @@ export const ItemTrigger = forwardRef<HTMLButtonElement, ItemTriggerProps>(
 
     /**
      * TODO:
-     * 버튼에 aria-expanded 반영
-     * 버튼에 aria-controls 반영 (연관된 Panel ID)
      * 연관 panel이 열린 상태에서 panel 닫힘을 허용하지 않은 경우 버튼에 aria-disabled 반영
      */
 
@@ -133,10 +131,6 @@ export const ItemPanel = forwardRef<HTMLDivElement, ItemPanelProps>(
 
     const { getItemPanelProps } = useAccordionProps(state, dispatch)
 
-    /**
-     * TODO:
-     * aria-labelledby 반영 (연관된 Trigger ID)
-     */
     return (
       <Presence present={state.context.value.includes(value)}>
         <Primitive.div
