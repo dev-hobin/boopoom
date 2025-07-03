@@ -21,13 +21,11 @@ export const Default: Story = {
   args: {
     children: ['React', 'Solid', 'Vue', 'Svelte'].map((item) => [
       <Accordion.Item key={item} value={item}>
-        <Accordion.ItemTrigger value={item}>
+        <Accordion.ItemTrigger>
           {item}
-          <Accordion.ItemIndicator asChild value={item}>
-            ItemIndicator
-          </Accordion.ItemIndicator>
+          <Accordion.ItemIndicator>ItemIndicator</Accordion.ItemIndicator>
         </Accordion.ItemTrigger>
-        <Accordion.ItemPanel value={item}>{item} Panel</Accordion.ItemPanel>
+        <Accordion.ItemPanel>{item} Panel</Accordion.ItemPanel>
       </Accordion.Item>,
     ]),
   },
