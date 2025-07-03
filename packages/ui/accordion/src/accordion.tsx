@@ -1,11 +1,12 @@
 import { Dispatch, forwardRef, useId } from 'react'
 import { Primitive, PrimitivePropsWithoutRef } from '@boopoom/primitive'
 import { handleSync, mergeProps } from '@boopoom/dom-utils'
-import { buildContext } from '@boopoom/react-utils'
+import { buildContext, useEventCallback } from '@boopoom/react-utils'
 import { useAccordion } from './useAccordion'
 import { useAccordionProps } from './useAccordionProps'
 
 import type { AccordionEvent, AccordionState } from './type'
+import { Presence } from '@radix-ui/react-presence'
 
 const [AccordionProvider, useAccordionContext] = buildContext<{
   state: AccordionState
@@ -16,7 +17,15 @@ const [AccordionItemProvider, useAccordionItemContext] = buildContext<{
   value: string | number
 }>('AccordionItemContext')
 
-export interface RootProps extends PrimitivePropsWithoutRef<'section'> {}
+export interface RootProps
+  extends Omit<
+    PrimitivePropsWithoutRef<'section'>,
+    'value' | 'defaultValue' | 'onValueChange'
+  > {
+  value?: (string | number)[]
+  defaultValue?: (string | number)[]
+  onValueChange?: (value: (string | number)[]) => void
+}
 export const Root = forwardRef<HTMLElement, RootProps>((props, ref) => {
   const defaultId = useId()
 
@@ -24,8 +33,20 @@ export const Root = forwardRef<HTMLElement, RootProps>((props, ref) => {
     status: 'idle',
     context: {
       id: props.id ?? defaultId,
+      value: props.value ?? props.defaultValue ?? [],
     },
-    callbacks: {},
+    callbacks: {
+      onValueChange: useEventCallback(props.onValueChange),
+    },
+  })
+
+  handleSync({
+    target: state.context,
+    source: props,
+    keys: ['value'],
+    handler: (syncedContext) => {
+      dispatch({ type: 'SYNC', payload: syncedContext })
+    },
   })
 
   const { rootProps } = useAccordionProps(state)
@@ -46,10 +67,12 @@ export const Item = forwardRef<HTMLDivElement, ItemProps>((props, ref) => {
 
   return (
     <AccordionItemProvider value={{ value: props.value }}>
-      <Primitive.div
-        ref={ref}
-        {...mergeProps(getItemProps({ value: props.value }), props)}
-      />
+      <Presence present={state.context.value.includes(props.value)}>
+        <Primitive.div
+          ref={ref}
+          {...mergeProps(getItemProps({ value: props.value }), props)}
+        />
+      </Presence>
     </AccordionItemProvider>
   )
 })

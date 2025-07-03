@@ -21,9 +21,10 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@boopoom/react-utils": "workspace:*",
     "@boopoom/dom-utils": "workspace:*",
-    "@boopoom/primitive": "workspace:*"
+    "@boopoom/primitive": "workspace:*",
+    "@boopoom/react-utils": "workspace:*",
+    "@radix-ui/react-presence": "^1.1.4"
   },
   "devDependencies": {
     "@types/react": "^19.1.6",

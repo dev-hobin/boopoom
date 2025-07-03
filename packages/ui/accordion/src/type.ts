@@ -2,9 +2,12 @@ export type AccordionStatus = 'idle'
 
 export type AccordionContext = {
   id: string
+  value: (string | number)[]
 }
 
-export type AccordionCallbacks = {}
+export type AccordionCallbacks = {
+  onValueChange: (value: (string | number)[]) => void
+}
 
 export type AccordionState = {
   status: AccordionStatus | (string & {})
