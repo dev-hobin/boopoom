@@ -1,6 +1,6 @@
-import { ComponentPropsWithoutRef, Dispatch, forwardRef } from 'react'
+import { Dispatch, forwardRef, useId } from 'react'
 import { Primitive, PrimitivePropsWithoutRef } from '@boopoom/primitive'
-import { mergeProps } from '@boopoom/dom-utils'
+import { handleSync, mergeProps } from '@boopoom/dom-utils'
 import { buildContext } from '@boopoom/react-utils'
 import { useAccordion } from './useAccordion'
 import { useAccordionProps } from './useAccordionProps'
@@ -14,11 +14,16 @@ const [AccordionProvider, useAccordionContext] = buildContext<{
 
 export interface RootProps extends PrimitivePropsWithoutRef<'section'> {}
 export const Root = forwardRef<HTMLElement, RootProps>((props, ref) => {
+  const defaultId = useId()
+
   const { state, dispatch } = useAccordion({
     status: 'idle',
-    context: {},
+    context: {
+      id: props.id ?? defaultId,
+    },
     callbacks: {},
   })
+
   const { rootProps } = useAccordionProps(state)
 
   return (
@@ -28,22 +33,30 @@ export const Root = forwardRef<HTMLElement, RootProps>((props, ref) => {
   )
 })
 
-export interface ItemProps extends PrimitivePropsWithoutRef<'div'> {}
+export interface ItemProps extends PrimitivePropsWithoutRef<'div'> {
+  value: string | number
+}
 export const Item = forwardRef<HTMLDivElement, ItemProps>((props, ref) => {
   const { state } = useAccordionContext()
-  const { itemProps } = useAccordionProps(state)
+  const { getItemProps } = useAccordionProps(state)
 
-  return <Primitive.div ref={ref} {...mergeProps(itemProps, props)} />
+  return (
+    <Primitive.div
+      ref={ref}
+      {...mergeProps(getItemProps({ value: props.value }), props)}
+    />
+  )
 })
 
 export interface ItemTriggerProps extends PrimitivePropsWithoutRef<'button'> {
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6
+  value: string | number
 }
 export const ItemTrigger = forwardRef<HTMLButtonElement, ItemTriggerProps>(
   (props, ref) => {
     const { headingLevel = 3, ...buttonProps } = props
     const { state } = useAccordionContext()
-    const { itemTriggerProps } = useAccordionProps(state)
+    const { getItemTriggerProps } = useAccordionProps(state)
 
     const HeadingLevel = `h${headingLevel}` as const
 
@@ -58,35 +71,50 @@ export const ItemTrigger = forwardRef<HTMLButtonElement, ItemTriggerProps>(
       <HeadingLevel>
         <Primitive.button
           ref={ref}
-          {...mergeProps(itemTriggerProps, buttonProps)}
+          {...mergeProps(
+            getItemTriggerProps({ value: props.value }),
+            buttonProps,
+          )}
         />
       </HeadingLevel>
     )
   },
 )
 
-export interface ItemIndicatorProps extends PrimitivePropsWithoutRef<'span'> {}
+export interface ItemIndicatorProps extends PrimitivePropsWithoutRef<'span'> {
+  value: string | number
+}
 export const ItemIndicator = forwardRef<HTMLSpanElement, ItemIndicatorProps>(
   (props, ref) => {
     const { state } = useAccordionContext()
-    const { itemIndicatorProps } = useAccordionProps(state)
+    const { getItemIndicatorProps } = useAccordionProps(state)
 
     return (
-      <Primitive.span ref={ref} {...mergeProps(itemIndicatorProps, props)} />
+      <Primitive.span
+        ref={ref}
+        {...mergeProps(getItemIndicatorProps({ value: props.value }), props)}
+      />
     )
   },
 )
 
-export interface ItemPanelProps extends PrimitivePropsWithoutRef<'div'> {}
+export interface ItemPanelProps extends PrimitivePropsWithoutRef<'div'> {
+  value: string | number
+}
 export const ItemPanel = forwardRef<HTMLDivElement, ItemPanelProps>(
   (props, ref) => {
     const { state } = useAccordionContext()
-    const { itemPanelProps } = useAccordionProps(state)
+    const { getItemPanelProps } = useAccordionProps(state)
 
     /**
      * TODO:
      * aria-labelledby 반영 (연관된 Trigger ID)
      */
-    return <Primitive.div ref={ref} {...mergeProps(itemPanelProps, props)} />
+    return (
+      <Primitive.div
+        ref={ref}
+        {...mergeProps(getItemPanelProps({ value: props.value }), props)}
+      />
+    )
   },
 )

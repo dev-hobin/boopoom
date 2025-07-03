@@ -20,14 +20,14 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     children: ['React', 'Solid', 'Vue', 'Svelte'].map((item) => [
-      <Accordion.Item key={item}>
-        <Accordion.ItemTrigger>
+      <Accordion.Item key={item} value={item}>
+        <Accordion.ItemTrigger value={item}>
           {item}
-          <Accordion.ItemIndicator asChild>
+          <Accordion.ItemIndicator asChild value={item}>
             ItemIndicator
           </Accordion.ItemIndicator>
         </Accordion.ItemTrigger>
-        <Accordion.ItemPanel>{item} Panel</Accordion.ItemPanel>
+        <Accordion.ItemPanel value={item}>{item} Panel</Accordion.ItemPanel>
       </Accordion.Item>,
     ]),
   },

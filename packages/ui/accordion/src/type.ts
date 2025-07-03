@@ -1,6 +1,8 @@
 export type AccordionStatus = 'idle'
 
-export type AccordionContext = {}
+export type AccordionContext = {
+  id: string
+}
 
 export type AccordionCallbacks = {}
 
